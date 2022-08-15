@@ -2,7 +2,9 @@ import s from "./ModalCreateHero.module.scss";
 import ModalWrapper from "components/ModalWrapper";
 import Button from "components/Button";
 import heroSchema from "assets/schemas/heroSchema";
+import { addSuperhero } from "services/backendApi";
 
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 
@@ -15,14 +17,19 @@ const initialValues = {
 };
 
 const ModalCreateHero = ({ open, onClose }) => {
+  const [files, setFile] = useState([]);
+
   return (
     <ModalWrapper open={open} onClose={onClose}>
       <Formik
         initialValues={initialValues}
         validateOnBlur
         onSubmit={async (values) => {
+          const data = new FormData();
+          data.append("images", files);
+          console.log("🚀 ~ data", data);
           try {
-            console.log(values);
+            await addSuperhero({ ...values, images: files });
           } catch (error) {}
         }}
         validationSchema={heroSchema}
@@ -126,7 +133,15 @@ const ModalCreateHero = ({ open, onClose }) => {
               </li>
               <li>
                 <label htmlFor="images">Add pictures</label>
-                <input id="images" name="images" type="file" multiple />
+                <input
+                  id="images"
+                  name="images"
+                  type="file"
+                  multiple
+                  onChange={(e) => {
+                    setFile(e.target.files);
+                  }}
+                />
               </li>
             </ul>
 

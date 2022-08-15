@@ -1,5 +1,5 @@
-import s from "./Header.module.scss";
 import Container from "components/Container/Container";
+import s from "./Header.module.scss";
 import ModalCreateHero from "components/Modals/ModalCreateHero";
 import Button from "components/Button";
 

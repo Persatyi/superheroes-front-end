@@ -1,20 +1,24 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://git.heroku.com/persatyi-superheroes.git";
+// axios.defaults.baseURL = "https://persatyi-superheroes.herokuapp.com";
+axios.defaults.baseURL = "http://localhost:3000";
 
 export const addSuperhero = async (data) => {
-  console.log(typeof data.images);
   try {
-    const result = await axios.post(
-      "/api/heroes",
-      { ...data },
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    console.log("🚀 ~ result", result);
+    const result = await axios.post("/api/heroes", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return result;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getHeroes = async () => {
+  try {
+    const result = await axios.get("/api/heroes");
     return result;
   } catch (error) {
     console.log(error.message);

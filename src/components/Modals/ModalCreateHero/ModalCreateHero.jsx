@@ -25,12 +25,25 @@ const ModalCreateHero = ({ open, onClose }) => {
         initialValues={initialValues}
         validateOnBlur
         onSubmit={async (values) => {
-          const data = new FormData();
-          data.append("images", files);
-          console.log("🚀 ~ data", data);
           try {
-            await addSuperhero({ ...values, images: files });
-          } catch (error) {}
+            const data = new FormData();
+
+            for (let [key, value] of Object.entries(values)) {
+              data.append(`${key}`, value);
+            }
+
+            if (files.length === 0) {
+              data.append("images", []);
+            } else {
+              for (let i = 0; i <= files.length; i += 1) {
+                data.append("images", files[i]);
+              }
+            }
+
+            await addSuperhero(data);
+          } catch (error) {
+            console.log(error.message);
+          }
         }}
         validationSchema={heroSchema}
       >
@@ -45,7 +58,6 @@ const ModalCreateHero = ({ open, onClose }) => {
           dirty,
         }) => (
           <form
-            action=""
             id="add-superhero-form"
             encType="multipart/form-data"
             onSubmit={handleSubmit}
@@ -91,7 +103,9 @@ const ModalCreateHero = ({ open, onClose }) => {
                 )}
               </li>
               <li>
-                <label htmlFor="originDescription">Origin description</label>
+                <label htmlFor="originDescription">
+                  Origin description<span>*</span>
+                </label>
                 <input
                   id="originDescription"
                   name="originDescription"
@@ -100,6 +114,11 @@ const ModalCreateHero = ({ open, onClose }) => {
                   onChange={handleChange}
                   value={values.originDescription}
                 />
+                {touched.originDescription && errors.originDescription && (
+                  <div className={s.errorWrapper}>
+                    <p className={s.error}>{errors.originDescription}</p>
+                  </div>
+                )}
               </li>
               <li>
                 <label htmlFor="superpowers">
@@ -121,7 +140,9 @@ const ModalCreateHero = ({ open, onClose }) => {
                 )}
               </li>
               <li>
-                <label htmlFor="catchPhrase">Catch phrase</label>
+                <label htmlFor="catchPhrase">
+                  Catch phrase<span>*</span>
+                </label>
                 <input
                   id="catchPhrase"
                   name="catchPhrase"
@@ -130,6 +151,11 @@ const ModalCreateHero = ({ open, onClose }) => {
                   onChange={handleChange}
                   value={values.catchPhrase}
                 />
+                {touched.catchPhrase && errors.catchPhrase && (
+                  <div className={s.errorWrapper}>
+                    <p className={s.error}>{errors.catchPhrase}</p>
+                  </div>
+                )}
               </li>
               <li>
                 <label htmlFor="images">Add pictures</label>

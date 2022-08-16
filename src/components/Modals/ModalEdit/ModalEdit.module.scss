@@ -1,0 +1,36 @@
+.imgWrapper {
+  position: relative;
+  min-width: 400px;
+  max-width: 800px;
+  min-height: 400px;
+}
+
+.img {
+  display: block;
+  object-fit: cover;
+  object-position: left bottom;
+}
+
+.prevBtn {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  width: 30px;
+  height: 60px;
+}
+
+.nextBtn {
+  position: absolute;
+  top: 45%;
+  right: 0;
+  width: 30px;
+  height: 60px;
+}
+
+.removeImage {
+  position: absolute;
+  bottom: 10px;
+  left: 45%;
+  width: 40px;
+  height: 40px;
+}

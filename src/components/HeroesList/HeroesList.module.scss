@@ -1,0 +1,32 @@
+.main {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-image: linear-gradient(
+    to right,
+    rgba(47, 48, 58, 0.4),
+    rgba(47, 48, 58, 0.4)
+  );
+}
+
+.list {
+  width: 100%;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.img {
+  width: 300px;
+  display: block;
+}
+
+.textList {
+  display: flex;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 500;
+  width: 150px;
+}

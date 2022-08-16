@@ -6,15 +6,4 @@
   background-color: var(--main-bg-cl);
   overflow: hidden;
   box-shadow: 10px 10px 20px rgba(9, 30, 63, 0.2);
-
-  @include mq(mobile) {
-    width: 280px;
-  }
-
-  @include mq(tablet) {
-    width: 394px;
-    &.large {
-      width: 608px;
-    }
-  }
 }

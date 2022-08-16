@@ -1,24 +1,19 @@
 import Container from "components/Container/Container";
 import s from "./Header.module.scss";
-import ModalCreateHero from "components/Modals/ModalCreateHero";
 import Button from "components/Button";
 
-import { useState } from "react";
-
-const Header = () => {
-  const [openModal, setOpenModal] = useState(false);
-
+const Header = ({ onClick }) => {
   return (
     <header className={s.header}>
       <Container>
-        <h1>Welcome to our superhero league</h1>
+        <h1 className={s.mainTitle}>Welcome to our superhero league</h1>
         <h2>If you are not in our database you are not a superhero</h2>
         <Button
+          className={s.addCharacter}
           text="Register new character"
-          onClick={() => setOpenModal(true)}
+          onClick={onClick}
         />
       </Container>
-      <ModalCreateHero open={openModal} onClose={() => setOpenModal(false)} />
     </header>
   );
 };

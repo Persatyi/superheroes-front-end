@@ -2,7 +2,6 @@ import s from "./ModalCreateHero.module.scss";
 import ModalWrapper from "components/ModalWrapper";
 import Button from "components/Button";
 import heroSchema from "assets/schemas/heroSchema";
-import { addSuperhero } from "services/backendApi";
 
 import { useState } from "react";
 import PropTypes from "prop-types";
@@ -16,7 +15,7 @@ const initialValues = {
   catchPhrase: "",
 };
 
-const ModalCreateHero = ({ open, onClose }) => {
+const ModalCreateHero = ({ open, onClose, addHero }) => {
   const [files, setFile] = useState([]);
 
   return (
@@ -39,8 +38,8 @@ const ModalCreateHero = ({ open, onClose }) => {
                 data.append("images", files[i]);
               }
             }
-
-            await addSuperhero(data);
+            await addHero(data);
+            onClose();
           } catch (error) {
             console.log(error.message);
           }
@@ -61,10 +60,11 @@ const ModalCreateHero = ({ open, onClose }) => {
             id="add-superhero-form"
             encType="multipart/form-data"
             onSubmit={handleSubmit}
+            className={s.form}
           >
-            <h3>Register new character</h3>
-            <ul>
-              <li>
+            <h3 className={s.title}>Register new character</h3>
+            <ul className={s.list}>
+              <li className={s.item}>
                 <label htmlFor="nickname">
                   Nickname<span>*</span>
                 </label>
@@ -76,6 +76,7 @@ const ModalCreateHero = ({ open, onClose }) => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.nickname}
+                  className={s.inputText}
                 />
                 {touched.nickname && errors.nickname && (
                   <div className={s.errorWrapper}>
@@ -83,7 +84,7 @@ const ModalCreateHero = ({ open, onClose }) => {
                   </div>
                 )}
               </li>
-              <li>
+              <li className={s.item}>
                 <label htmlFor="realName">
                   Real Name<span>*</span>
                 </label>
@@ -95,6 +96,7 @@ const ModalCreateHero = ({ open, onClose }) => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.realName}
+                  className={s.inputText}
                 />
                 {touched.realName && errors.realName && (
                   <div className={s.errorWrapper}>
@@ -102,7 +104,7 @@ const ModalCreateHero = ({ open, onClose }) => {
                   </div>
                 )}
               </li>
-              <li>
+              <li className={s.item}>
                 <label htmlFor="originDescription">
                   Origin description<span>*</span>
                 </label>
@@ -113,6 +115,7 @@ const ModalCreateHero = ({ open, onClose }) => {
                   placeholder="Write here origin description"
                   onChange={handleChange}
                   value={values.originDescription}
+                  className={s.inputText}
                 />
                 {touched.originDescription && errors.originDescription && (
                   <div className={s.errorWrapper}>
@@ -120,7 +123,7 @@ const ModalCreateHero = ({ open, onClose }) => {
                   </div>
                 )}
               </li>
-              <li>
+              <li className={s.item}>
                 <label htmlFor="superpowers">
                   Superpowers<span>*</span>
                 </label>
@@ -132,6 +135,7 @@ const ModalCreateHero = ({ open, onClose }) => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.superpowers}
+                  className={s.inputText}
                 />
                 {touched.superpowers && errors.superpowers && (
                   <div className={s.errorWrapper}>
@@ -139,7 +143,7 @@ const ModalCreateHero = ({ open, onClose }) => {
                   </div>
                 )}
               </li>
-              <li>
+              <li className={s.item}>
                 <label htmlFor="catchPhrase">
                   Catch phrase<span>*</span>
                 </label>
@@ -150,6 +154,7 @@ const ModalCreateHero = ({ open, onClose }) => {
                   placeholder="Type catch phrase"
                   onChange={handleChange}
                   value={values.catchPhrase}
+                  className={s.inputText}
                 />
                 {touched.catchPhrase && errors.catchPhrase && (
                   <div className={s.errorWrapper}>
@@ -157,7 +162,7 @@ const ModalCreateHero = ({ open, onClose }) => {
                   </div>
                 )}
               </li>
-              <li>
+              <li className={s.item}>
                 <label htmlFor="images">Add pictures</label>
                 <input
                   id="images"
@@ -170,14 +175,15 @@ const ModalCreateHero = ({ open, onClose }) => {
                 />
               </li>
             </ul>
-
-            <Button
-              className={s.submitBtn}
-              type="submit"
-              text="Submit"
-              disabled={!isValid && !dirty}
-            />
-            <Button className={s.closeBtn} text="Cancel" onClick={onClose} />
+            <div className={s.btnWrapper}>
+              <Button
+                className={s.submitBtn}
+                type="submit"
+                text="Submit"
+                disabled={!isValid && !dirty}
+              />
+              <Button className={s.closeBtn} text="Cancel" onClick={onClose} />
+            </div>
           </form>
         )}
       </Formik>

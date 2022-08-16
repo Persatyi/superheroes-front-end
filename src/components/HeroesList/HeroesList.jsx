@@ -36,8 +36,8 @@ const HeroesList = ({ data = [], handlePicture }) => {
                 <li className={s.item} key={id}>
                   <img
                     onClick={() => onClickHeroEdit({ id, images })}
-                    src={!!images ? `${PATH}${images[0].name}` : unknown}
-                    alt={images[0].name}
+                    src={!!images.length ? `${PATH}${images[0].name}` : unknown}
+                    alt={!!images.length ? images[0].name : "unknown hero"}
                     className={s.img}
                   />
                   <ul>

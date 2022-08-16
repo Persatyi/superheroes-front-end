@@ -27,6 +27,9 @@ const ModalEdit = ({ open, info, onClose }) => {
   };
 
   const removeImage = async () => {
+    if (images.length === 0) {
+      return;
+    }
     await removePicture({ id, image: images[counter].name }).unwrap();
   };
 

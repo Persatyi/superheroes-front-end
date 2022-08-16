@@ -34,8 +34,8 @@ const ModalEdit = ({ open, info, onClose }) => {
     <ModalWrapper open={open} onClose={onClose}>
       <div className={s.imgWrapper}>
         <img
-          src={!!images ? `${PATH}${images[counter].name}` : unknown}
-          alt={images[counter].name}
+          src={!!images.length ? `${PATH}${images[counter].name}` : unknown}
+          alt={!!images.length ? images[counter].name : "unknown hero"}
           className={s.img}
         />
         <FcPrevious className={s.prevBtn} onClick={prevImage} />
